@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/NUTS_RG_03M_2016_3035_LEVL_0_0.js"></script>
+        <script src="data/combustible_moguer_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[37.03868325025979,-6.868211344241316],[37.254752053790234,-6.592059237055342]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_NUTS_RG_03M_2016_3035_LEVL_0_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LEVL_CODE'] !== null ? autolinker.link(feature.properties['LEVL_CODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUTS_ID'] !== null ? autolinker.link(feature.properties['NUTS_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CNTR_CODE'] !== null ? autolinker.link(feature.properties['CNTR_CODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUTS_NAME'] !== null ? autolinker.link(feature.properties['NUTS_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MOUNT_TYPE'] !== null ? autolinker.link(feature.properties['MOUNT_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['URBN_TYPE'] !== null ? autolinker.link(feature.properties['URBN_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COAST_TYPE'] !== null ? autolinker.link(feature.properties['COAST_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_NUTS_RG_03M_2016_3035_LEVL_0_0_0() {
+            return {
+                pane: 'pane_NUTS_RG_03M_2016_3035_LEVL_0_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(195,195,195,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_NUTS_RG_03M_2016_3035_LEVL_0_0');
+        map.getPane('pane_NUTS_RG_03M_2016_3035_LEVL_0_0').style.zIndex = 400;
+        map.getPane('pane_NUTS_RG_03M_2016_3035_LEVL_0_0').style['mix-blend-mode'] = 'normal';
+        var layer_NUTS_RG_03M_2016_3035_LEVL_0_0 = new L.geoJson(json_NUTS_RG_03M_2016_3035_LEVL_0_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_NUTS_RG_03M_2016_3035_LEVL_0_0',
+            layerName: 'layer_NUTS_RG_03M_2016_3035_LEVL_0_0',
+            pane: 'pane_NUTS_RG_03M_2016_3035_LEVL_0_0',
+            onEachFeature: pop_NUTS_RG_03M_2016_3035_LEVL_0_0,
+            style: style_NUTS_RG_03M_2016_3035_LEVL_0_0_0,
+        });
+        bounds_group.addLayer(layer_NUTS_RG_03M_2016_3035_LEVL_0_0);
+        map.addLayer(layer_NUTS_RG_03M_2016_3035_LEVL_0_0);
+        function pop_combustible_moguer_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COD_USO'] !== null ? autolinker.link(feature.properties['COD_USO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DES_USO'] !== null ? autolinker.link(feature.properties['DES_USO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MC'] !== null ? autolinker.link(feature.properties['MC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MC_Observa'] !== null ? autolinker.link(feature.properties['MC_Observa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UCO40'] !== null ? autolinker.link(feature.properties['UCO40'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UCO40_Obse'] !== null ? autolinker.link(feature.properties['UCO40_Obse'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['combustibl'] !== null ? autolinker.link(feature.properties['combustibl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_combustible_moguer_1_0(feature) {
+            switch(String(feature.properties['MC'])) {
+                case '1':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,39,0,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(89,56,20,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,73,40,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(95,80,44,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(69,77,31,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,95,16,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '7':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(16,113,2,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '8':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(73,142,3,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '9':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(130,170,4,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(187,199,4,0.751)',
+                interactive: true,
+            }
+                    break;
+                case '11':
+                    return {
+                pane: 'pane_combustible_moguer_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.751)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,228,5,0.751)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_combustible_moguer_1');
+        map.getPane('pane_combustible_moguer_1').style.zIndex = 401;
+        map.getPane('pane_combustible_moguer_1').style['mix-blend-mode'] = 'normal';
+        var layer_combustible_moguer_1 = new L.geoJson(json_combustible_moguer_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_combustible_moguer_1',
+            layerName: 'layer_combustible_moguer_1',
+            pane: 'pane_combustible_moguer_1',
+            onEachFeature: pop_combustible_moguer_1,
+            style: style_combustible_moguer_1_0,
+        });
+        bounds_group.addLayer(layer_combustible_moguer_1);
+        map.addLayer(layer_combustible_moguer_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'combustible_moguer<br /><table><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo10.png" /></td><td>Combustible tipo 1</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo21.png" /></td><td>Combustible tipo 2</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo32.png" /></td><td>Combustible tipo 3</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo43.png" /></td><td>Combustible tipo 4</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo54.png" /></td><td>Combustible tipo 5</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo65.png" /></td><td>Combustible tipo 6</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo76.png" /></td><td>Combustible tipo 7</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo87.png" /></td><td>Combustible tipo 8</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo98.png" /></td><td>Combustible tipo 9</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo109.png" /></td><td>Combustible tipo 10</td></tr><tr><td style="text-align: center;"><img src="legend/combustible_moguer_1_Combustibletipo1110.png" /></td><td>Combustible tipo 11</td></tr></table>': layer_combustible_moguer_1,'<img src="legend/NUTS_RG_03M_2016_3035_LEVL_0_0.png" /> NUTS_RG_03M_2016_3035_LEVL_0': layer_NUTS_RG_03M_2016_3035_LEVL_0_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
