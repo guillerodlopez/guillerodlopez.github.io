@@ -1,0 +1,6 @@
+.estilo1 {font-family: sans-serif; text-align: center}
+.estilo2 {font-family: serif; text-align: right}
+
+<p class="estilo1">Aprendiendo CSS (sans-serif)</p>
+<p class="estilo2">Cambiando estilos (serif)</p>
+
